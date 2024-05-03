@@ -5,10 +5,11 @@ Describe "Convert-ToBase64" {
 
     # Initialize common variables using BeforeAll
     BeforeAll {
-        $base64_string = '4K>SL?Vb'
-        $base64_bytes = @(52, 75, 62, 83, 76, 63, 86, 98)
-        $base64_verify = 'NEs+U0w/VmI='
-        $base64url_verify = 'NEs-U0w_VmI'
+        $base64_string, $base64_bytes, $base64_verify, $base64url_verify |Out-Null
+        [string] $base64_string = '4K>SL?Vb'
+        [byte[]] $base64_bytes = @(52, 75, 62, 83, 76, 63, 86, 98)
+        [string] $base64_verify = 'NEs+U0w/VmI='
+        [string] $base64url_verify = 'NEs-U0w_VmI'
     }
 
     Context "Converting strings and byte arrays to Base64" {
