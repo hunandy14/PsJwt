@@ -58,11 +58,31 @@ Write-Host $jwt -ForegroundColor DarkGreen
 
 ## 測試
 簽名測試測試用網站: https://jwt.io/
+> 進入之後把下面JWT跟公鑰填入，可以看到左下角有個 `Signature Verified` 就是驗證功過了  
+> 也可以填入私鑰後直接修改右邊的 PAYLOAD 網站會自動生成正確的 JWT 字串  
 
-驗證用JWT
+<br>
 
-```ps1
-$jwtVerify = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9.Sh6zZXY_q-CZiDOIaxQEraqIh0gQr24jhsTRZ2OWv7NpxOzdECJzV2Lbw_sSngOkjMtMuw5pztixoBNIwxli1aFIE5pxTEgOZ2faIQQ7iCVmBERNGvoLxvfF0ClhMxHGnrPam8Q_hRcDsgl-uGC4-snMrx7-b5eDLJC14cHEfpkgIbzA65JGxqpycF-oy757t3B5DQcZQkE-XjeJk-qlxiX4Qq_Ez8hxUxRiy4ysAxYgHIOhukYivvmsVdghCpU5wD_gEEjO6NeTuwLCqtl9k5XP-LByIo8eXermD2BmsLYkSh4mYk68FqwnoEGYFIknVdKJPZ5n5GAjd1vD0lssmw'
+快速使用範例預期產出的 JWT 結果
+
+```txt
+eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9.Sh6zZXY_q-CZiDOIaxQEraqIh0gQr24jhsTRZ2OWv7NpxOzdECJzV2Lbw_sSngOkjMtMuw5pztixoBNIwxli1aFIE5pxTEgOZ2faIQQ7iCVmBERNGvoLxvfF0ClhMxHGnrPam8Q_hRcDsgl-uGC4-snMrx7-b5eDLJC14cHEfpkgIbzA65JGxqpycF-oy757t3B5DQcZQkE-XjeJk-qlxiX4Qq_Ez8hxUxRiy4ysAxYgHIOhukYivvmsVdghCpU5wD_gEEjO6NeTuwLCqtl9k5XP-LByIo8eXermD2BmsLYkSh4mYk68FqwnoEGYFIknVdKJPZ5n5GAjd1vD0lssmw
+```
+
+<br>
+
+測試用公鑰 `public_key.pem`
+
+```pem
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyo8/5NIZNSF8LvXUbzrG
+nyKEolcVMsieWmdX+oLwQl2zPb5s86J031Z2qRwuVFHDIUyih9YJaV1gFjy0QC+0
+ISYIdDGvmyetAVXNIEagGuNkvL+YecX3vVH7+gARh9ao17sNuwquDF6gO6n5kKrE
+3FAWbExB2R9QOeXnYb8TeYjZNce1JKHEHe4+GG5oJODY7zk9OKCuhOC+SrA05rBJ
+CE3CeNxPIliZeJ/eIoxvjF82qBWKHIzlIcY7i5ndZqVtPk/ycBWIOXmnBLPyGRDX
+mIgbiQ7Pt4P1fdgx2I6bctuWGbxlN0SDAIjcNvIgZylBVaL8/WQ5eCNegFNxFc8w
+OQIDAQAB
+-----END PUBLIC KEY-----
 ```
 
 <br>
@@ -98,22 +118,4 @@ iuCoqTE87MnV5YoIqErzMuZRiCJoT+k+u1br5SAahD82hUSGNgIoQykGF3RssOfu
 6n3Qj81wSxOVUW7gUIGw+WhtoG6NLSvvZ7fQNiZoeI5mFTxy9yLnr2q2N9FHewkT
 bXcNURy8SSmuP7m77jn3DR7v
 -----END PRIVATE KEY-----
-
-```
-
-<br>
-
-測試用公鑰 `public_key.pem`
-
-```pem
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyo8/5NIZNSF8LvXUbzrG
-nyKEolcVMsieWmdX+oLwQl2zPb5s86J031Z2qRwuVFHDIUyih9YJaV1gFjy0QC+0
-ISYIdDGvmyetAVXNIEagGuNkvL+YecX3vVH7+gARh9ao17sNuwquDF6gO6n5kKrE
-3FAWbExB2R9QOeXnYb8TeYjZNce1JKHEHe4+GG5oJODY7zk9OKCuhOC+SrA05rBJ
-CE3CeNxPIliZeJ/eIoxvjF82qBWKHIzlIcY7i5ndZqVtPk/ycBWIOXmnBLPyGRDX
-mIgbiQ7Pt4P1fdgx2I6bctuWGbxlN0SDAIjcNvIgZylBVaL8/WQ5eCNegFNxFc8w
-OQIDAQAB
------END PUBLIC KEY-----
-
 ```
