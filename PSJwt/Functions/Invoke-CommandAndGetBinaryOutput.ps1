@@ -46,6 +46,15 @@ function Invoke-CommandAndGetBinaryOutput {
         # 關閉標準輸入以告訴進程所有輸入已結束
         $process.StandardInput.Close()
 
+        # 等待進程結束
+        $process.WaitForExit()
+    
+        # 檢查是否有錯誤輸出
+        if ($process.StandardError.Peek() -ne -1) {
+            $errMsg = $process.StandardError.ReadToEnd()
+            Write-Error $errMsg -ErrorAction Stop
+        }
+    
         # 使用 MemoryStream 讀取二進制數據
         $memoryStream = New-Object System.IO.MemoryStream
         try {
