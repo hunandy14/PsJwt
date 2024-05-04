@@ -9,6 +9,9 @@ function Invoke-CommandAndGetBinaryOutput {
     )
 
     Begin {
+        # 同步 .Net 環境工作目錄
+        [IO.Directory]::SetCurrentDirectory(((Get-Location -PSProvider FileSystem).ProviderPath))
+        
         # 用空白分割命令行，並分配文件名與參數
         $fileName, $arguments = $CommandLine -split ' ', 2
 
