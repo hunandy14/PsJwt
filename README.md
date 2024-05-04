@@ -1,6 +1,19 @@
 PSJwt
 ===
 
+快速使用1
+```ps1
+irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
+$privatekeyPath = '.\key\private_key.pem'
+$jwtClaims = New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
+$signature = Convert-ToBase64Url($jwtClaims | Invoke-CommandAndGetBinaryOutput "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`"")
+Write-Host "$jwtClaims.$signature" -ForegroundColor DarkGreen
+
+```
+
+
+<br><br><br>
+
 線上載入
 ```ps1
 irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
@@ -11,8 +24,7 @@ irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |ie
 Import-Module (Join-Path $PSScriptRoot "../PSJwt/PSJwt.psm1") -Force -ErrorAction Stop
 ```
 
-
-快速使用
+快速使用2
 ```ps1
 # 簽名用私鑰
 $privatekeyPath = '.\key\private_key.pem'
@@ -91,7 +103,8 @@ bXcNURy8SSmuP7m77jn3DR7v
 
 <br>
 
-測試用公鑰 `private_key.pem`
+測試用公鑰 `public_key.pem`
+
 ```pem
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyo8/5NIZNSF8LvXUbzrG
