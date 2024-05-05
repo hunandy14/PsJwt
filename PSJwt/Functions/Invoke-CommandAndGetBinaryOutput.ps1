@@ -1,10 +1,9 @@
 function Invoke-CommandAndGetBinaryOutput {
-    [CmdletBinding(DefaultParameterSetName = "")]
     [CmdletBinding()]
     Param(
         [Parameter(Position = 0, Mandatory)]
         [string]$CommandLine,
-        [Parameter(ParameterSetName = "", ValueFromPipeline)]
+        [Parameter(ValueFromPipeline)]
         [string]$InputData
     )
 
