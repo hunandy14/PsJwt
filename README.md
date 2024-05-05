@@ -5,12 +5,17 @@ PSJwt
 ```ps1
 & {
     irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
-    $privatekeyPath = '.\key\private_key.pem'
+    $priKey = Get-Item ".\private_key.pem" -EA 1
     $jwtClaims = New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
-    $signature = Convert-ToBase64Url($jwtClaims | Invoke-CommandAndGetBinaryOutput "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`"")
+    $signature = Convert-ToBase64Url($jwtClaims | Invoke-CommandAndGetBinaryOutput "OpenSSL dgst -sha512 -binary -sign `"$priKey`"")
     Write-Host "$jwtClaims.$signature" -ForegroundColor DarkGreen
 }
 ```
+
+> 關於 OpenSSL  
+> 1. 第三方編譯的安裝檔案 : https://slproweb.com/products/Win32OpenSSL.html  
+> 2. 第三方 choco 快速安裝: `choco install -y openssl`  
+
 
 
 <br><br><br>
