@@ -52,6 +52,28 @@ Describe "New-JwtClaimsString" {
             $jwtClaimsString | Should -Be $expectedJwtString
 
         }
+        
+        # 測試提供正確參數時，是否能正確從哈希表生成 JWT 聲明字符串
+        It "Given valid parameters, it should generate the correct JWT claims string from hashtable" {
+
+            # 生成 JWT 用的 JSON 文字 (包含換行)
+            $header = @{
+                alg = "RS512"
+                typ = "JWT"
+            }
+            $payload = @{
+                email = "jordan@example.com"
+            }
+
+            # 使用 JSON 文字生成 JWT 聲明字符串
+            $jwtClaimsString = New-JwtClaimsString $header $payload
+            $jwtClaimsString | Should -Be $expectedJwtString
+
+            # 使用 JSON 文字生成 JWT 聲明字符串 (測試省略輸入參數)
+            $jwtClaimsString = New-JwtClaimsString $header $payload
+            $jwtClaimsString | Should -Be $expectedJwtString
+
+        }
 
     }
 

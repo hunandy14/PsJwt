@@ -6,7 +6,7 @@ PSJwt
 & {
     irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
     $priKey = Get-Item ".\private_key.pem" -EA 1
-    $jwtClaims = New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
+    $jwtClaims = New-JwtClaimsString @{alg="RS512";typ="JWT"} @{email="jordan@example.com"}
     $signature = Convert-ToBase64Url($jwtClaims |ivc "OpenSSL dgst -sha512 -sign `"$priKey`"")
     Write-Host "$jwtClaims.$signature" -ForegroundColor DarkGreen
 }
