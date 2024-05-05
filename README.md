@@ -3,12 +3,13 @@ PSJwt
 
 快速使用1
 ```ps1
-irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
-$privatekeyPath = '.\key\private_key.pem'
-$jwtClaims = New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
-$signature = Convert-ToBase64Url($jwtClaims | Invoke-CommandAndGetBinaryOutput "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`"")
-Write-Host "$jwtClaims.$signature" -ForegroundColor DarkGreen
-
+& {
+    irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
+    $privatekeyPath = '.\key\private_key.pem'
+    $jwtClaims = New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
+    $signature = Convert-ToBase64Url($jwtClaims | Invoke-CommandAndGetBinaryOutput "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`"")
+    Write-Host "$jwtClaims.$signature" -ForegroundColor DarkGreen
+}
 ```
 
 
