@@ -1,5 +1,5 @@
 function Invoke-CommandAndGetBinaryOutput {
-    [CmdletBinding()] [OutputType([byte[]])]
+    [CmdletBinding()] [OutputType([byte[]])] [Alias("ivc")]
     Param(
         [Parameter(Position = 0, Mandatory)]
         [string]$CommandLine,
