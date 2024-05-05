@@ -1,5 +1,5 @@
 function Invoke-CommandAndGetBinaryOutput {
-    [CmdletBinding()]
+    [CmdletBinding()] [OutputType([byte[]])]
     Param(
         [Parameter(Position = 0, Mandatory)]
         [string]$CommandLine,
@@ -13,7 +13,7 @@ function Invoke-CommandAndGetBinaryOutput {
         
         # 用空白分割命令行，並分配文件名與參數
         $fileName, $arguments = $CommandLine -split ' ', 2
-        try { Get-Command $fileName -ErrorAction Stop } catch {
+        try { Get-Command $fileName -ErrorAction Stop |Out-Null } catch {
             Write-Error ($_.Exception.Message) -ErrorAction Stop
         }
 
