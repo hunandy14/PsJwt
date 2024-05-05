@@ -5,10 +5,24 @@ Describe "New-JwtClaimsString" {
 
     # Initialize common variables using BeforeAll
     BeforeAll {
-        $expectedJwtString |Out-Null
 
         # 預期的 JWT 字符串，用於驗證測試結果
         [string] $expectedJwtString = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9'
+
+        # 生成 JWT Header 用的 HashTable
+        [hashtable] $headerHash = @{
+            alg = "RS512"
+            typ = "JWT"
+        }
+
+        # 生成 JWT Payload 用的 HashTable
+        [hashtable] $payloadHash = @{
+            email = "jordan@example.com"
+        }
+
+        # 消除警告的無用行
+        $expectedJwtString, $headerHash, $payloadHash |Out-Null
+
     }
 
     Context "Generate the JWT claims string" {
@@ -17,13 +31,8 @@ Describe "New-JwtClaimsString" {
         It "Given valid parameters, it should generate the correct JWT claims string" {
 
             # 生成 JWT 用的 JSON 文字 (包含換行)
-            $header = @{
-                alg = "RS512"
-                typ = "JWT"
-            } | ConvertTo-Json -Compress
-            $payload = @{
-                email = "jordan@example.com"
-            } | ConvertTo-Json -Compress
+            $header = $headerHash | ConvertTo-Json -Compress
+            $payload = $payloadHash | ConvertTo-Json -Compress
 
             # 使用 JSON 文字生成 JWT 聲明字符串
             $jwtClaimsString = New-JwtClaimsString -HeaderString $header -PayloadString $payload
@@ -39,31 +48,21 @@ Describe "New-JwtClaimsString" {
         It "Given valid parameters, it should generate the correct JWT claims string, even with additional whitespace in the JSON format" {
 
             # 生成 JWT 用的 JSON 文字 (去除多餘空白)
-            $header = @{
-                alg = "RS512"
-                typ = "JWT"
-            } | ConvertTo-Json
-            $payload = @{
-                email = "jordan@example.com"
-            } | ConvertTo-Json
+            $header = $headerHash | ConvertTo-Json
+            $payload = $payloadHash | ConvertTo-Json
 
             # 使用 JSON 文字生成 JWT 聲明字符串
             $jwtClaimsString = New-JwtClaimsString -HeaderString $header -PayloadString $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
         }
-        
+
         # 測試提供正確參數時，是否能正確從哈希表生成 JWT 聲明字符串
         It "Given valid parameters, it should generate the correct JWT claims string from hashtable" {
 
-            # 生成 JWT 用的 JSON 文字 (包含換行)
-            $header = @{
-                alg = "RS512"
-                typ = "JWT"
-            }
-            $payload = @{
-                email = "jordan@example.com"
-            }
+            # 生成 JWT 用的 HashTable
+            $header = $headerHash
+            $payload = $payloadHash
 
             # 使用 JSON 文字生成 JWT 聲明字符串
             $jwtClaimsString = New-JwtClaimsString $header $payload
