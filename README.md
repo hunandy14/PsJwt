@@ -7,7 +7,7 @@ PSJwt
     irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
     $priKey = Get-Item ".\private_key.pem" -EA 1
     $data = ConvertTo-JwtUnsignToken @{alg="RS512";typ="JWT"} @{email="jordan@example.com"}
-    $signature = Convert-ToBase64Url($data |icb "OpenSSL dgst -sha512 -sign `"$priKey`"")
+    $signature = ConvertTo-Base64Url($data |icb "OpenSSL dgst -sha512 -sign `"$priKey`"")
     Write-Host "$data.$signature" -ForegroundColor DarkGreen
 }
 ```
@@ -62,7 +62,7 @@ $jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString
 # 對 JWT 聲明字符串簽名
 $cmdString = "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`""
 $byte = $jwtClaimsString | Invoke-CommandAndGetBinaryOutput -CommandLine $cmdString
-$signature = Convert-ToBase64Url($byte)
+$signature = ConvertTo-Base64Url($byte)
 
 # 組合成最終的 JWT
 $jwt = "$jwtClaimsString.$signature"

@@ -37,7 +37,7 @@ Describe "Invoke-CommandAndGetBinaryOutput" {
             # 對 JWT 聲明字符串簽名
             $cmdString = "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`""
             $byte = $jwtClaimsString | Invoke-CommandAndGetBinaryOutput -CommandLine $cmdString
-            $signature = Convert-ToBase64Url($byte)
+            $signature = ConvertTo-Base64Url($byte)
             
             # 組合成最終的 JWT
             $jwt = "$jwtClaimsString.$signature"

@@ -15,16 +15,16 @@ function ConvertTo-JwtUnsignToken {
     if ($PSCmdlet.ParameterSetName -eq "String") {
 
         # 構造 JWT Header
-        $base64urlHeader = $HeaderString | ConvertFrom-Json | ConvertTo-Json -Compress | Convert-ToBase64Url
+        $base64urlHeader = $HeaderString | ConvertFrom-Json | ConvertTo-Json -Compress | ConvertTo-Base64Url
         # 構造 JWT Payload
-        $base64urlPayload = $PayloadString | ConvertFrom-Json | ConvertTo-Json -Compress | Convert-ToBase64Url
+        $base64urlPayload = $PayloadString | ConvertFrom-Json | ConvertTo-Json -Compress | ConvertTo-Base64Url
 
     } elseif ($PSCmdlet.ParameterSetName -eq "Hash") {
 
         # 構造 JWT Header
-        $base64urlHeader = $HeaderHash | ConvertTo-Json -Compress | Convert-ToBase64Url
+        $base64urlHeader = $HeaderHash | ConvertTo-Json -Compress | ConvertTo-Base64Url
         # 構造 JWT Payload
-        $base64urlPayload = $PayloadHash | ConvertTo-Json -Compress | Convert-ToBase64Url
+        $base64urlPayload = $PayloadHash | ConvertTo-Json -Compress | ConvertTo-Base64Url
 
     }
 

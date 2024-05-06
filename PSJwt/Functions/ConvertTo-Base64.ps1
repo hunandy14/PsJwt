@@ -1,5 +1,5 @@
 # 轉換到 Base64
-function Convert-ToBase64 {
+function ConvertTo-Base64 {
     [CmdletBinding(DefaultParameterSetName = "String")]
     Param(
         [Parameter(Position = 0, ParameterSetName = "String", Mandatory, ValueFromPipeline)]
@@ -26,10 +26,10 @@ function Convert-ToBase64 {
         return $base64
     }
     
-} # Convert-ToBase64 "0000"
+} # ConvertTo-Base64 "0000"
 
 # 轉換到 Base64Url
-function Convert-ToBase64Url {
+function ConvertTo-Base64Url {
     [CmdletBinding(DefaultParameterSetName = "String")]
     Param(
         [Parameter(Position = 0, ParameterSetName = "String", Mandatory, ValueFromPipeline)]
@@ -40,12 +40,12 @@ function Convert-ToBase64Url {
     
     Process {
         if ($PSCmdlet.ParameterSetName -eq "String") {
-            $base64url = Convert-ToBase64 $InputString -Base64Url
+            $base64url = ConvertTo-Base64 $InputString -Base64Url
         }
         elseif ($PSCmdlet.ParameterSetName -eq "Bytes") {
-            $base64url = Convert-ToBase64 $InputBytes -Base64Url
+            $base64url = ConvertTo-Base64 $InputBytes -Base64Url
         }
         return $base64url
     }
     
-} # Convert-ToBase64Url "0000"
+} # ConvertTo-Base64Url "0000"

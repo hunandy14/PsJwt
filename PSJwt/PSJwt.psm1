@@ -8,7 +8,7 @@ $scriptPaths = @(
     'Functions/New-SecureHexString.ps1',
     
     # public functions
-    'Functions/Convert-ToBase64.ps1',
+    'Functions/ConvertTo-Base64.ps1',
     'Functions/Invoke-CommandAndGetBinaryOutput.ps1',
     
     # public functions
