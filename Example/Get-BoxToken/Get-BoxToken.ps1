@@ -1,7 +1,11 @@
 # Import PSJwt Moudle
-$params = @{ Uri = 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' }
-if (![string]::IsNullOrWhiteSpace($env:HTTP_PROXY)) { $params['Proxy'] = $env:HTTP_PROXY }
-Invoke-RestMethod @params -ea 1| Invoke-Expression -ea 1
+try {
+    $irmParams = @{
+         Uri = 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1'
+    }; if (![string]::IsNullOrWhiteSpace($env:HTTP_PROXY)) {
+        $irmParams['Proxy'] = $env:HTTP_PROXY
+    }; Invoke-RestMethod @irmParams |Invoke-Expression -ea 1
+} catch { Write-Error $PSItem.Exception.Message -ea 1 }
 
 # Get-BoxAccessToken
 function Get-BoxAccessToken {
