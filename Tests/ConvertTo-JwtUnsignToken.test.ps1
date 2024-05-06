@@ -44,10 +44,10 @@ Describe "ConvertTo-JwtUnsignToken" {
 
         }
 
-        # 測試提供正確參數但 JSON 格式包含多餘空白時，是否能生成相同的 JWT 聲明字符串
+        # 測試提供正確參數但 JSON 格式包含空白與換行時，是否能生成相同的 JWT 聲明字符串
         It "Given valid parameters, it should generate the correct JWT claims string, even with additional whitespace in the JSON format" {
 
-            # 生成 JWT 用的 JSON 文字 (去除多餘空白)
+            # 生成 JWT 用的 JSON 文字 (未去除多餘字符包含空白與換行)
             $header = $headerHash | ConvertTo-Json
             $payload = $payloadHash | ConvertTo-Json
 

@@ -6,7 +6,7 @@ PSJwt
 & {
     irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
     $priKey = Get-Item ".\private_key.pem" -EA 1
-    $data = ConvertTo-JwtUnsignToken @{alg="RS512";typ="JWT"} @{email="jordan@example.com"}
+    $data = ConvertTo-JwtUnsignToken ([ordered]@{alg="RS512";typ="JWT"}) @{email="jordan@example.com"}
     $signature = ConvertTo-Base64Url($data |icb "OpenSSL dgst -sha512 -sign `"$priKey`"")
     Write-Host "$data.$signature" -ForegroundColor DarkGreen
 }
