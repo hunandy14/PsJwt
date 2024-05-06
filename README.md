@@ -12,9 +12,14 @@ PSJwt
 }
 ```
 
+<br>
+
 > 關於 OpenSSL  
 > 1. 第三方編譯的安裝檔案 : https://slproweb.com/products/Win32OpenSSL.html  
 > 2. 第三方 choco 快速安裝: `choco install -y openssl`  
+
+> 對於其他加密算法對應的 OpenSSL Command 指令請參照這份表格  
+> https://github.com/hunandy14/PsJwt/blob/main/OpenSSL/AlgorithmMappingTable.md  
 
 
 
