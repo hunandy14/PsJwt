@@ -7,9 +7,9 @@ function ConvertTo-JwtUnsignToken {
         [Parameter(Position = 1, ParameterSetName = "String", Mandatory)]
         [string]$PayloadString,
         [Parameter(Position = 0, ParameterSetName = "Hash", Mandatory)]
-        [System.Collections.Hashtable]$HeaderHash,
+        [Hashtable]$HeaderHash,
         [Parameter(Position = 1, ParameterSetName = "Hash", Mandatory)]
-        [System.Collections.Hashtable]$PayloadHash
+        [Hashtable]$PayloadHash
     )
 
     if ($PSCmdlet.ParameterSetName -eq "String") {

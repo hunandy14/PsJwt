@@ -10,13 +10,13 @@ Describe "ConvertTo-JwtUnsignToken" {
         [string] $expectedJwtString = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9'
 
         # 生成 JWT Header 用的 HashTable
-        [hashtable] $headerHash = @{
+        [hashtable] $headerHash = [ordered] @{
             alg = "RS512"
             typ = "JWT"
         }
 
         # 生成 JWT Payload 用的 HashTable
-        [hashtable] $payloadHash = @{
+        [hashtable] $payloadHash = [ordered] @{
             email = "jordan@example.com"
         }
 
