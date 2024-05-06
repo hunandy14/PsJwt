@@ -1,15 +1,15 @@
 # 構造 JWT 聲明字串
 function ConvertTo-JwtUnsignToken {
-    [CmdletBinding(DefaultParameterSetName = "String")]
+    [CmdletBinding(DefaultParameterSetName = "Hash")]
     Param(
-        [Parameter(Position = 0, ParameterSetName = "String", Mandatory)]
-        [string]$HeaderString,
-        [Parameter(Position = 1, ParameterSetName = "String", Mandatory)]
-        [string]$PayloadString,
         [Parameter(Position = 0, ParameterSetName = "Hash", Mandatory)]
         [Hashtable]$HeaderHash,
         [Parameter(Position = 1, ParameterSetName = "Hash", Mandatory)]
-        [Hashtable]$PayloadHash
+        [Hashtable]$PayloadHash,
+        [Parameter(Position = 0, ParameterSetName = "String", Mandatory)]
+        [string]$HeaderString,
+        [Parameter(Position = 1, ParameterSetName = "String", Mandatory)]
+        [string]$PayloadString
     )
 
     if ($PSCmdlet.ParameterSetName -eq "String") {
