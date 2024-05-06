@@ -22,5 +22,5 @@ foreach ($scriptPath in $scriptPaths) {
     if (![string]::IsNullOrWhiteSpace($env:HTTP_PROXY)) {
         $params['Proxy'] = $env:HTTP_PROXY
     }
-    Invoke-RestMethod @params | Invoke-Expression
+    Invoke-RestMethod @params -EA Stop| Invoke-Expression -EA Stop
 }
