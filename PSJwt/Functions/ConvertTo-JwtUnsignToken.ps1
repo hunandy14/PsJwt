@@ -1,6 +1,6 @@
 # 構造 JWT 聲明字串
 function ConvertTo-JwtUnsignToken {
-    [CmdletBinding(DefaultParameterSetName = "Hash")]
+    [CmdletBinding(DefaultParameterSetName = "Hash")] [Alias("cJwt")]
     Param(
         [Parameter(Position = 0, ParameterSetName = "Hash", Mandatory)]
         [Hashtable]$HeaderHash,
