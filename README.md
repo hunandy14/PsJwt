@@ -25,10 +25,17 @@ PSJwt
 irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
 ```
 
+線上載入Proxy (`$env:HTTP_PROXY = 'http://YOUR_PROXY:8080'`)
+```ps1
+irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' -proxy $env:HTTP_PROXY |iex
+```
+
 本地檔案
 ```ps1
 Import-Module (Join-Path $PSScriptRoot "../PSJwt/PSJwt.psm1") -Force -ErrorAction Stop
 ```
+
+<br>
 
 快速使用2
 ```ps1
