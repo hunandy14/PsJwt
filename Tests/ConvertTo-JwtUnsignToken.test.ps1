@@ -1,4 +1,4 @@
-Describe "New-JwtClaimsString" {
+Describe "ConvertTo-JwtUnsignToken" {
 
     # Import the necessary module
     Import-Module (Join-Path $PSScriptRoot "../PSJwt/PSJwt.psm1") -Force -ErrorAction Stop
@@ -35,11 +35,11 @@ Describe "New-JwtClaimsString" {
             $payload = $payloadHash | ConvertTo-Json -Compress
 
             # 使用 JSON 文字生成 JWT 聲明字符串
-            $jwtClaimsString = New-JwtClaimsString -HeaderString $header -PayloadString $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
             # 使用 JSON 文字生成 JWT 聲明字符串 (測試省略輸入參數)
-            $jwtClaimsString = New-JwtClaimsString $header $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken $header $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
         }
@@ -52,7 +52,7 @@ Describe "New-JwtClaimsString" {
             $payload = $payloadHash | ConvertTo-Json
 
             # 使用 JSON 文字生成 JWT 聲明字符串
-            $jwtClaimsString = New-JwtClaimsString -HeaderString $header -PayloadString $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
         }
@@ -65,11 +65,11 @@ Describe "New-JwtClaimsString" {
             $payload = $payloadHash
 
             # 使用 JSON 文字生成 JWT 聲明字符串
-            $jwtClaimsString = New-JwtClaimsString $header $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken $header $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
             # 使用 JSON 文字生成 JWT 聲明字符串 (測試省略輸入參數)
-            $jwtClaimsString = New-JwtClaimsString $header $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken $header $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
         }

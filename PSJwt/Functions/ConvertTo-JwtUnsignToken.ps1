@@ -1,5 +1,5 @@
 # 構造 JWT 聲明字串
-function New-JwtClaimsString {
+function ConvertTo-JwtUnsignToken {
     [CmdletBinding(DefaultParameterSetName = "String")]
     Param(
         [Parameter(Position = 0, ParameterSetName = "String", Mandatory)]
@@ -28,8 +28,8 @@ function New-JwtClaimsString {
 
     }
 
-    # 構造 JWT 聲明字串
-    $base64urlClaims = "$base64urlHeader.$base64urlPayload"
+    # 構造 JWT 未簽名字串
+    $jwtUnsignToken = "$base64urlHeader.$base64urlPayload"
 
-    return $base64urlClaims
-} # New-JwtClaimsString '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'
+    return $jwtUnsignToken
+} # ConvertTo-JwtUnsignToken '{"alg":"RS512","typ":"JWT"}' '{"email":"jordan@example.com"}'

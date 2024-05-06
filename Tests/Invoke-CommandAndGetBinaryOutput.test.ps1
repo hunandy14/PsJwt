@@ -31,7 +31,7 @@ Describe "Invoke-CommandAndGetBinaryOutput" {
             } | ConvertTo-Json -Compress
 
             # 使用 JSON 文字生成 JWT 聲明字符串
-            $jwtClaimsString = New-JwtClaimsString -HeaderString $header -PayloadString $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
             Write-Host $jwtClaimsString
             
             # 對 JWT 聲明字符串簽名

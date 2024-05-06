@@ -12,7 +12,7 @@ $scriptPaths = @(
     'Functions/Invoke-CommandAndGetBinaryOutput.ps1',
     
     # public functions
-    'Functions/New-JwtClaimsString.ps1'
+    'Functions/ConvertTo-JwtUnsignToken.ps1'
     
 )
 
