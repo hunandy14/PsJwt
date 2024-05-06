@@ -10,13 +10,13 @@ Describe "ConvertTo-JwtUnsignToken" {
         [string] $expectedJwtString = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9'
 
         # 生成 JWT Header 用的 HashTable
-        [hashtable] $headerHash = [ordered] @{
+        [Collections.IDictionary] $headerHash = [ordered] @{
             alg = "RS512"
             typ = "JWT"
         }
 
         # 生成 JWT Payload 用的 HashTable
-        [hashtable] $payloadHash = [ordered] @{
+        [Collections.IDictionary] $payloadHash = [ordered] @{
             email = "jordan@example.com"
         }
 
@@ -65,7 +65,7 @@ Describe "ConvertTo-JwtUnsignToken" {
             $payload = $payloadHash
 
             # 使用 JSON 文字生成 JWT 聲明字符串
-            $jwtClaimsString = ConvertTo-JwtUnsignToken $header $payload
+            $jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderHash $header -PayloadHash $payload
             $jwtClaimsString | Should -Be $expectedJwtString
 
             # 使用 JSON 文字生成 JWT 聲明字符串 (測試省略輸入參數)
