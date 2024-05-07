@@ -4,8 +4,19 @@ try {
          Uri = 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1'
     }; if (![string]::IsNullOrWhiteSpace($env:HTTP_PROXY)) {
         $irmParams['Proxy'] = $env:HTTP_PROXY
-    }; Invoke-RestMethod @irmParams |Invoke-Expression -ea 1
+    }; Invoke-RestMethod @irmParams |Invoke-Expression -ea 1; $irmParams = $null
 } catch { Write-Error $PSItem.Exception.Message -ea 1 }
+
+# Download OpenSSL and Add to temp env path
+try { Get-Command OpenSSL -ErrorAction Stop | Out-Null } catch {
+    (New-Object Net.WebClient).DownloadFile(
+        'https://github.com/hunandy14/PsJwt/raw/main/OpenSSL/OpenSSL-Win64.zip',
+        "$($env:temp)\OpenSSL-Win64.zip"
+    ); Expand-Archive "$($env:temp)\OpenSSL-Win64.zip" "$($env:temp)\OpenSSL-Win64" -Force -ErrorAction Stop
+    "$($env:temp)\OpenSSL-Win64.zip" |Remove-Item -Force |Out-Null
+    $env:Path = "$($env:temp)\OpenSSL-Win64; $($env:Path)"
+    Get-Command OpenSSL -ErrorAction Stop | Out-Null
+}
 
 # Get-BoxAccessToken
 function Get-BoxAccessToken {
