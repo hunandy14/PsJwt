@@ -30,7 +30,7 @@ function New-SecureTempFile {
     $null | Out-File -FilePath $fullFilePath -NoNewline
 
     # 使用 icacls 設置檔案權限，清除繼承並僅賦予當前用戶讀取權限
-    $icaclsOutput = icacls.exe "$fullFilePath" /inheritance:r /grant:r "$($env:USERNAME):RW" /grant:r "Administrators:F"
+    $icaclsOutput = icacls.exe "$fullFilePath" /inheritance:r /grant:r "$($env:USERNAME):F" /grant:r "Administrators:F"
     if ($LASTEXITCODE -ne 0) { Write-Error "Error setting permissions with icacls: $icaclsOutput" -EA 0 }
 
     # 將檔案信息添加到全域哈希表
