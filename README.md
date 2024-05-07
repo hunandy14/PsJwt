@@ -57,15 +57,15 @@ $payload = @{
 } | ConvertTo-Json -Compress
 
 # 使用 JSON 文字生成 JWT 聲明字符串
-$jwtClaimsString = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
+$jwtDataToken = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
 
 # 對 JWT 聲明字符串簽名
 $cmdString = "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`""
-$byte = $jwtClaimsString | Invoke-CommandAndGetBinaryOutput -CommandLine $cmdString
+$byte = $jwtDataToken | Invoke-CommandAndGetBinaryOutput -CommandLine $cmdString
 $signature = ConvertTo-Base64Url($byte)
 
 # 組合成最終的 JWT
-$jwt = "$jwtClaimsString.$signature"
+$jwt = "$jwtDataToken.$signature"
 Write-Host $jwt -ForegroundColor DarkGreen
 
 ```
