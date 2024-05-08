@@ -9,12 +9,13 @@ try {
 
 # Download OpenSSL and Add to temp env path
 try { Get-Command OpenSSL -ErrorAction Stop | Out-Null } catch {
-    (New-Object Net.WebClient).DownloadFile(
-        'https://github.com/hunandy14/PsJwt/raw/main/OpenSSL/OpenSSL-Win64.zip',
-        "$($env:temp)\OpenSSL-Win64.zip"
-    ); Expand-Archive "$($env:temp)\OpenSSL-Win64.zip" "$($env:temp)\OpenSSL-Win64" -Force -ErrorAction Stop
-    "$($env:temp)\OpenSSL-Win64.zip" |Remove-Item -Force |Out-Null
-    $env:Path = "$($env:temp)\OpenSSL-Win64; $($env:Path)"
+    if (!(Test-Path "$($env:temp)\OpenSSL-Win64\openssl.exe")) {
+        (New-Object Net.WebClient).DownloadFile(
+            'https://github.com/hunandy14/PsJwt/raw/main/OpenSSL/OpenSSL-Win64.zip',
+            "$($env:temp)\OpenSSL-Win64.zip"
+        ); Expand-Archive "$($env:temp)\OpenSSL-Win64.zip" "$($env:temp)\OpenSSL-Win64" -Force -ErrorAction Stop
+        "$($env:temp)\OpenSSL-Win64.zip" |Remove-Item -Force |Out-Null
+    }; $env:Path = "$($env:temp)\OpenSSL-Win64; $($env:Path)"
     Get-Command OpenSSL -ErrorAction Stop | Out-Null
 }
 
