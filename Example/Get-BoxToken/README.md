@@ -32,7 +32,7 @@ Get-BoxAccessToken 'C:\Box\config.json'
 
     # 設置 API 請求參數
     $irmParams = @{
-        Uri     = 'https://api.box.com/2.0/folders/0'
+        Uri     = 'https://api.box.com/2.0/users/me'
         Method  = 'Get'
         Headers = @{ Authorization = "Bearer $((Get-BoxAccessToken $args[0]).access_token)" }
         Proxy   = $env:HTTP_PROXY
@@ -44,7 +44,8 @@ Get-BoxAccessToken 'C:\Box\config.json'
         Write-Host "Response received successfully" -BackgroundColor DarkGreen
     } catch { Write-Error "Failed to get response: $($_.Exception.Message)" -ea 1 }
 
-    # 輸出響應內容
-    Write-Host $response
+    # 輸出用戶資訊
+    Write-Host "Authenticated as: $($response.name)"
 } .\config.json
+
 ```
