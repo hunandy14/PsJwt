@@ -54,11 +54,12 @@ Describe "SecureTempFile.test" {
             $admin.Read           | Should -Be ''
             $admin.Write          | Should -Be ''
             $user = $permission|Where-Object { $_.Identity -eq "$($env:COMPUTERNAME)\$($env:USERNAME)" }
-            $user.FullControl     | Should -Be ''
+            $user.FullControl
+            $user.FullControl     | Should -Be 'Allow'
             $user.Modify          | Should -Be ''
             $user.ReadAndExecute  | Should -Be ''
-            $user.Read            | Should -Be 'Allow'
-            $user.Write           | Should -Be 'Allow'
+            $user.Read            | Should -Be ''
+            $user.Write           | Should -Be ''
 
             # 刪除檔案
             $tmp | Remove-SecureTempFile
