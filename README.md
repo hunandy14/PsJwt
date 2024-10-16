@@ -5,9 +5,8 @@ PSJwt
 ```ps1
 & {
     irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' |iex
-    $priKey = Get-Item ".\private_key.pem" -EA 1
     $data = ConvertTo-JwtUnsignToken ([ordered]@{alg="RS512";typ="JWT"}) @{email="jordan@example.com"}
-    $signature = ConvertTo-Base64Url($data |icb "OpenSSL dgst -sha512 -sign `"$priKey`"")
+    $signature = ConvertTo-Base64Url($data |icb OpenSSL dgst -sha512 -sign .\key\private_key.pem)
     Write-Host "$data.$signature" -ForegroundColor DarkGreen
 }
 ```
@@ -37,7 +36,7 @@ irm 'raw.githubusercontent.com/hunandy14/PsJwt/main/PSJwt/PSJwt.github.psm1' -pr
 
 本地檔案
 ```ps1
-Import-Module (Join-Path $PSScriptRoot "../PSJwt/PSJwt.psm1") -Force -ErrorAction Stop
+Import-Module (Join-Path $PSScriptRoot ".\PSJwt\PSJwt.psm1") -Force -ErrorAction Stop
 ```
 
 <br>
@@ -60,8 +59,8 @@ $payload = @{
 $jwtDataToken = ConvertTo-JwtUnsignToken -HeaderString $header -PayloadString $payload
 
 # 對 JWT 聲明字符串簽名
-$cmdString = "OpenSSL dgst -sha512 -binary -sign `"$privatekeyPath`""
-$byte = $jwtDataToken | Invoke-CommandAndGetBinaryOutput -CommandLine $cmdString
+$byte = $jwtDataToken | 
+    Invoke-CommandAndGetBinaryOutput OpenSSL dgst -sha512 -binary -sign $privatekeyPath
 $signature = ConvertTo-Base64Url($byte)
 
 # 組合成最終的 JWT
@@ -89,7 +88,7 @@ eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbkBleGFtcGxlLmNvbSJ9.Sh
 
 <br>
 
-測試用公鑰 `public_key.pem`
+測試用公鑰 `.\key\public_key.pem`
 
 ```pem
 -----BEGIN PUBLIC KEY-----
@@ -105,7 +104,7 @@ OQIDAQAB
 
 <br>
 
-測試用私鑰 `private_key.pem`
+測試用私鑰 `.\key\private_key.pem`
 
 ```pem
 -----BEGIN PRIVATE KEY-----
